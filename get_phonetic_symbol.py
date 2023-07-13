@@ -1,7 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import pyperclip
+
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
@@ -14,7 +16,8 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
 try:
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    service = Service(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(options=options, service=service)
     while True:
         tango = input("発音記号をコピーしたい英単語を入力してください。'q'を入力すると終了します。：")
         if tango == 'q':
